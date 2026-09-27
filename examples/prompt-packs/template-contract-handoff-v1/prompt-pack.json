@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "1.0",
+  "promptPackId": "template-contract-handoff-v1",
+  "name": "Template Contract Handoff Prompt Pack",
+  "entry": "prompt.md"
+}

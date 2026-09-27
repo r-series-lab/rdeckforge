@@ -1,0 +1,320 @@
+{
+  "schemaVersion": "1.0",
+  "templateId": "demo-medical-teaching-v1",
+  "name": "Demo Medical Teaching Template",
+  "familyId": "demo-medical-teaching-v1",
+  "role": "slides",
+  "format": "pptx",
+  "entry": "template.pptx",
+  "contentSchema": "teaching_deck_v1",
+  "input": {
+    "profile": "teaching_deck_v1",
+    "formats": ["json", "md"],
+    "schema": "schemas/input.schema.json",
+    "schemaId": "teaching_deck_v1",
+    "mdProfile": "teaching_outline_v1"
+  },
+  "preview": {
+    "cover": "previews/cover.svg",
+    "slides": [
+      { "title": "封面", "image": "previews/cover.svg" },
+      { "title": "章节内容", "image": "previews/content.svg" },
+      { "title": "表格与图表", "image": "previews/data.svg" }
+    ]
+  },
+  "renderMode": "pptx_automizer",
+  "pageTemplates": {
+    "cover": {
+      "sourceSlide": 1,
+      "description": "Cover page",
+      "bindings": {
+        "title": {
+          "shapeName": "ph:title",
+          "dataPath": "$.title",
+          "type": "text",
+          "required": true,
+          "maxLength": 40
+        },
+        "speaker": {
+          "shapeName": "ph:speaker",
+          "dataPath": "$.speaker",
+          "type": "text"
+        },
+        "date": {
+          "shapeName": "ph:date",
+          "dataPath": "$.date",
+          "type": "text"
+        },
+        "coverImage": {
+          "shapeName": "ph:coverImage",
+          "dataPath": "$.coverImage",
+          "type": "image",
+          "fit": "cover"
+        }
+      }
+    },
+    "goals": {
+      "sourceSlide": 2,
+      "description": "Teaching goals",
+      "bindings": {
+        "goals": {
+          "shapeName": "ph:goals",
+          "dataPath": "$.goals",
+          "type": "list",
+          "maxItems": 4
+        }
+      }
+    },
+    "toc": {
+      "sourceSlide": 2,
+      "description": "Auto-paginated directory page",
+      "bindings": {
+        "chapters": {
+          "shapeName": "ph:goals",
+          "dataPath": "$.chapters",
+          "type": "list",
+          "maxItems": 4
+        }
+      }
+    },
+    "toc_compact": {
+      "sourceSlide": 2,
+      "description": "Compact directory page for short chunks",
+      "bindings": {
+        "chapters": {
+          "shapeName": "ph:goals",
+          "dataPath": "$.chapters",
+          "type": "list",
+          "maxItems": 2
+        }
+      }
+    },
+    "section_divider": {
+      "sourceSlide": 3,
+      "description": "Chapter divider",
+      "bindings": {
+        "label": {
+          "shapeName": "ph:sectionLabel",
+          "dataPath": "$.label",
+          "type": "text"
+        },
+        "title": {
+          "shapeName": "ph:title",
+          "dataPath": "$.title",
+          "type": "text",
+          "required": true
+        }
+      }
+    },
+    "chapter_content": {
+      "sourceSlide": 4,
+      "description": "Chapter content page reused for every chapter",
+      "bindings": {
+        "title": {
+          "shapeName": "ph:title",
+          "dataPath": "$.contentTitle",
+          "type": "text",
+          "required": true
+        },
+        "items": {
+          "shapeName": "ph:items",
+          "dataPath": "$.items",
+          "type": "list",
+          "maxItems": 4
+        }
+      }
+    },
+    "chapter_content_compact": {
+      "sourceSlide": 9,
+      "description": "Compact chapter content page for short overflow tails",
+      "bindings": {
+        "title": {
+          "shapeName": "ph:title",
+          "dataPath": "$.contentTitle",
+          "type": "text",
+          "required": true
+        },
+        "items": {
+          "shapeName": "ph:items",
+          "dataPath": "$.items",
+          "type": "list",
+          "maxItems": 2
+        }
+      }
+    },
+    "assessment_table": {
+      "sourceSlide": 5,
+      "description": "Assessment table page",
+      "bindings": {
+        "title": {
+          "shapeName": "ph:title",
+          "dataPath": "'护理评估表'",
+          "type": "text"
+        },
+        "assessmentTable": {
+          "shapeName": "ph:assessmentTable",
+          "dataPath": "$.assessmentTable",
+          "type": "table",
+          "tableOptions": {
+            "adjustWidth": true,
+            "adjustHeight": true,
+            "columnWidths": [2500000, 4500000, 3300000],
+            "headerStyle": {
+              "bold": true,
+              "background": "DBEAFE",
+              "color": "172033",
+              "borderColor": "D7DEE8",
+              "borderWeight": 12700
+            },
+            "bodyStyle": {
+              "color": "172033",
+              "borderColor": "D7DEE8",
+              "borderWeight": 12700
+            }
+          }
+        }
+      }
+    },
+    "score_chart": {
+      "sourceSlide": 6,
+      "description": "Image-backed chart page",
+      "bindings": {
+        "title": {
+          "shapeName": "ph:title",
+          "dataPath": "'评分趋势'",
+          "type": "text"
+        },
+        "scoreTrend": {
+          "shapeName": "ph:scoreChart",
+          "dataPath": "$.charts.scoreTrend",
+          "type": "chart",
+          "chartMode": "image"
+        }
+      }
+    },
+    "native_score_chart": {
+      "sourceSlide": 7,
+      "description": "Editable native PowerPoint chart page",
+      "bindings": {
+        "title": {
+          "shapeName": "ph:title",
+          "dataPath": "'可编辑评分趋势'",
+          "type": "text"
+        },
+        "scoreTrend": {
+          "shapeName": "ph:nativeScoreChart",
+          "dataPath": "$.charts.scoreTrend",
+          "type": "chart",
+          "chartMode": "native",
+          "chartOptions": {
+            "title": true,
+            "axisRange": {
+              "min": 0,
+              "max": 100,
+              "majorUnit": 20
+            }
+          }
+        }
+      }
+    },
+    "summary": {
+      "sourceSlide": 8,
+      "description": "Summary page",
+      "bindings": {
+        "items": {
+          "shapeName": "ph:summary",
+          "dataPath": "$.summary",
+          "type": "list",
+          "maxItems": 4
+        }
+      }
+    },
+    "evaluation": {
+      "sourceSlide": 9,
+      "description": "Evaluation page reused for each evaluation block",
+      "bindings": {
+        "title": {
+          "shapeName": "ph:title",
+          "dataPath": "$.title",
+          "type": "text"
+        },
+        "items": {
+          "shapeName": "ph:items",
+          "dataPath": "$.items",
+          "type": "list",
+          "maxItems": 4
+        }
+      }
+    },
+    "closing": {
+      "sourceSlide": 10,
+      "description": "Closing page",
+      "bindings": {
+        "title": {
+          "shapeName": "ph:title",
+          "dataPath": "'感谢观看'",
+          "type": "text"
+        }
+      }
+    }
+  },
+  "deckRecipes": {
+    "teaching_deck": [
+      { "use": "cover", "data": "$" },
+      { "use": "goals", "data": "$" },
+      { "use": "section_divider", "repeat": "$.chapters" },
+      { "use": "chapter_content", "repeat": "$.chapters" },
+      { "use": "assessment_table", "data": "$" },
+      { "use": "score_chart", "data": "$" },
+      { "use": "native_score_chart", "data": "$" },
+      { "use": "summary", "data": "$" },
+      { "use": "evaluation", "repeat": "$.evaluations" },
+      { "use": "closing", "data": "$" }
+    ],
+    "toc_chunk_demo": [
+      { "use": "cover", "data": "$" },
+      {
+        "use": "toc",
+        "repeat": "$.chapters",
+        "chunk": { "size": 4, "as": "chapters" },
+        "variants": [
+          { "use": "toc_compact", "when": { "path": "$.chapters", "countMax": 2 } }
+        ]
+      },
+      { "use": "closing", "data": "$" }
+    ],
+    "chapter_overflow_demo": [
+      { "use": "cover", "data": "$" },
+      {
+        "use": "chapter_content",
+        "repeat": "$.chapters",
+        "overflow": { "strategy": "split", "path": "$.items", "maxItems": 4 },
+        "variants": [
+          { "use": "chapter_content_compact", "when": { "path": "$.items", "countMax": 2 } }
+        ]
+      },
+      { "use": "closing", "data": "$" }
+    ],
+    "chapter_group_demo": [
+      { "use": "cover", "data": "$" },
+      { "use": "goals", "data": "$" },
+      {
+        "repeat": "$.chapters",
+        "steps": [
+          { "use": "section_divider", "data": "$" },
+          {
+            "use": "chapter_content",
+            "data": "$",
+            "overflow": { "strategy": "split", "path": "$.items", "maxItems": 4 },
+            "variants": [
+              { "use": "chapter_content_compact", "when": { "path": "$.items", "countMax": 2 } }
+            ]
+          }
+        ]
+      },
+      { "use": "assessment_table", "data": "$", "when": "$.assessmentTable" },
+      { "use": "summary", "data": "$", "when": { "path": "$.summary", "countMin": 1 } },
+      { "use": "closing", "data": "$" }
+    ]
+  }
+}

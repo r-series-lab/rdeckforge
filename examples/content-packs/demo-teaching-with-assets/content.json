@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0",
+  "documentType": "teaching_deck",
+  "title": "示例护理教学资源包",
+  "speaker": "讲者姓名",
+  "date": "2026-06-23",
+  "coverImage": {
+    "src": "assets/cover.svg",
+    "alt": "护理教学封面示意图"
+  },
+  "goals": ["掌握护理评估流程", "理解风险识别要点", "完成教学反馈设计"],
+  "assessmentTable": {
+    "columns": ["项目", "观察要点", "教学提示"],
+    "rows": [
+      ["意识状态", "观察意识水平、配合度和沟通反应。", "用病例问题引导观察。"],
+      ["生命体征", "记录并比较关键指标变化趋势。", "强调记录频率和异常上报。"],
+      ["跌倒风险", "结合评分表和环境因素判断。", "安排小组复盘。"]
+    ]
+  },
+  "charts": {
+    "scoreTrend": {
+      "title": "课堂前后测评分趋势",
+      "type": "line",
+      "labels": ["课前", "讲授后", "案例后", "复盘后"],
+      "series": [
+        { "name": "平均分", "values": [68, 78, 86, 91], "color": "#2563EB" },
+        { "name": "达标率", "values": [56, 70, 82, 88], "color": "#0F766E" }
+      ]
+    }
+  },
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "label": "第一部分",
+      "title": "护理评估",
+      "contentTitle": "护理评估",
+      "items": [
+        { "heading": "意识状态", "body": "观察意识水平、配合度和沟通反应。" },
+        { "heading": "生命体征", "body": "记录并比较关键指标变化趋势。" }
+      ]
+    },
+    {
+      "id": "chapter-2",
+      "label": "第二部分",
+      "title": "风险识别",
+      "contentTitle": "风险识别",
+      "items": [
+        { "heading": "跌倒风险", "body": "结合评分表和环境因素进行判断。" },
+        { "heading": "管路风险", "body": "关注固定、标识和交接记录。" }
+      ]
+    }
+  ],
+  "summary": ["以结构化评估组织教学内容", "用资源包管理图片、图表和附件"],
+  "evaluations": [{ "title": "教学评价", "items": ["现场提问", "案例复盘"] }]
+}

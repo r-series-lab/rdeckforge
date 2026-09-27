@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "app.rseries.rdeckforge.prompt_pack.v1",
+  "title": "rDeckForge Prompt Pack",
+  "type": "object",
+  "required": ["schemaVersion", "promptPackId", "name", "entry"],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0" },
+    "promptPackId": { "type": "string", "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "entry": { "type": "string", "default": "prompt.md" },
+    "outputSchema": { "type": "string", "default": "output.schema.json" }
+  }
+}

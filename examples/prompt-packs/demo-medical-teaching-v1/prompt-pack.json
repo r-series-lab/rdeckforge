@@ -1,0 +1,7 @@
+{
+  "schemaVersion": "1.0",
+  "promptPackId": "demo-medical-teaching-v1",
+  "name": "Demo Medical Teaching Prompt Pack",
+  "entry": "prompt.md",
+  "outputSchema": "output.schema.json"
+}

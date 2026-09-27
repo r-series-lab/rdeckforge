@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "teaching_deck_v1",
+  "type": "object",
+  "anyOf": [
+    { "required": ["schemaVersion", "documentType", "title", "chapters"] },
+    { "required": ["schemaVersion", "documentType", "pages"] }
+  ],
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "documentType": { "enum": ["teaching_deck", "pptx_pages"] },
+    "title": { "type": "string" },
+    "speaker": { "type": "string" },
+    "date": { "type": "string" },
+    "coverImage": {
+      "anyOf": [
+        { "type": "string" },
+        {
+          "type": "object",
+          "required": ["src"],
+          "properties": {
+            "src": { "type": "string" },
+            "alt": { "type": "string" }
+          }
+        }
+      ]
+    },
+    "goals": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "assessmentTable": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "anyOf": [{ "type": "string" }, { "type": "number" }, { "type": "boolean" }]
+            }
+          }
+        }
+      }
+    },
+    "charts": {
+      "type": "object",
+      "properties": {
+        "scoreTrend": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string" },
+            "type": { "enum": ["bar", "line"] },
+            "labels": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "series": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["values"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "values": {
+                    "type": "array",
+                    "items": { "type": "number" }
+                  },
+                  "color": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "title": { "type": "string" },
+          "contentTitle": { "type": "string" },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "heading": { "type": "string" },
+                "body": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "evaluations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "items": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "pages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["use", "data"],
+        "properties": {
+          "use": { "type": "string" },
+          "pageTemplate": { "type": "string" },
+          "data": { "type": "object" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+[package]
+name = "rdeckforge-core"
+version = "0.1.5"
+edition = "2024"
+
+[[bin]]
+name = "rdeckforge"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1.0.100"
+chrono = { version = "0.4.42", features = ["clock", "serde"] }
+clap = { version = "4.5.53", features = ["derive"] }
+jsonschema = { version = "0.46.5", default-features = false }
+roxmltree = "0.21.1"
+rusqlite = { version = "0.37.0", features = ["bundled"] }
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.145"
+uuid = { version = "1.18.1", features = ["v4"] }
+zip = { version = "0.6.6", default-features = false, features = ["deflate"] }

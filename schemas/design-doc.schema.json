@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "app.rseries.rdeckforge.content.design_doc_v1",
+  "title": "rDeckForge Design Document Content",
+  "type": "object",
+  "required": ["schemaVersion", "documentType", "title", "blocks"],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0" },
+    "documentType": { "type": "string", "const": "design_doc" },
+    "title": { "type": "string", "minLength": 1 },
+    "metadata": { "type": "object" },
+    "blocks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["type", "text"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["heading", "paragraph", "listItem", "orderedItem", "quote", "code"]
+          },
+          "level": { "type": "integer", "minimum": 0, "maximum": 6 },
+          "language": { "type": "string" },
+          "text": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

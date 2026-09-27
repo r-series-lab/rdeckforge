@@ -1,0 +1,304 @@
+function run() {
+  const host = Application.currentApplication();
+  host.includeStandardAdditions = true;
+  let stage = "初始化";
+  let activeWindow = null;
+
+  try {
+    stage = "连接系统辅助功能";
+    const systemEvents = Application("System Events");
+    const process = systemEvents.processes.byName("rdeckforge-tauri");
+    if (!process.exists()) {
+      throw new Error("没有找到 rdeckforge-tauri 进程");
+    }
+
+    stage = "激活应用窗口";
+    process.frontmost = true;
+    delay(0.8);
+    if (process.windows.length === 0) {
+      throw new Error("应用窗口不可访问，请为运行测试的终端开启辅助功能权限");
+    }
+
+    const window = process.windows[0];
+    activeWindow = window;
+    stage = "查找主导航";
+    const navigation = waitForElement(window, "AXGroup", "主导航", 8, host);
+    if (!navigation) {
+      throw new Error("没有找到主导航，请确认应用已完成启动且辅助功能权限可用");
+    }
+
+    const pages = [
+      { navigation: "AI 交接包", heading: "AI 交接包" },
+      { navigation: "模板库", heading: "模板库", templateWorkflow: true },
+      { navigation: "输出校验", heading: "输出校验", validation: true },
+      { navigation: "生成", heading: "生成" },
+      { navigation: "环境体检", heading: "环境体检" },
+      { navigation: "历史记录", heading: "历史记录" },
+    ];
+    const results = [];
+    console.log("已找到主导航");
+    stage = "清理测试前界面异常";
+    clearExistingUiError(navigation, window, host);
+
+    for (let index = 0; index < pages.length; index += 1) {
+      const page = pages[index];
+      console.log("开始检查：" + page.navigation);
+      stage = "刷新主导航：" + page.navigation;
+      const currentNavigation = waitForElement(window, "AXGroup", "主导航", 6, host);
+      if (!currentNavigation) {
+        throw new Error("页面切换后无法重新获取主导航");
+      }
+      stage = "查找导航按钮：" + page.navigation;
+      const button = findElement(currentNavigation, "AXButton", page.navigation, 700);
+      if (!button) {
+        throw new Error("主导航缺少页面：" + page.navigation);
+      }
+
+      stage = "点击导航按钮：" + page.navigation;
+      pressElement(button);
+      stage = "等待页面标题：" + page.heading;
+      const heading = waitForElement(window, "AXHeading", page.heading, 6, host);
+      if (!heading) {
+        throw new Error("页面未出现预期标题：" + page.heading);
+      }
+      const observedHeading = elementName(heading);
+      console.log("标题可见：" + page.heading);
+
+      let validationSummary = null;
+      let templateWorkflow = null;
+      if (page.templateWorkflow) {
+        stage = "等待模板库结构预览";
+        if (!waitForElement(window, "AXHeading", "模板预览", 8, host)) {
+          throw new Error("模板库没有显示结构预览面板");
+        }
+        const useButton = waitForElement(window, "AXButton", "使用此模板", 8, host);
+        if (!useButton) {
+          throw new Error("模板库没有可使用的模板记录");
+        }
+        stage = "使用模板并进入生成页";
+        pressElement(useButton);
+        if (!waitForElement(window, "AXHeading", "生成", 8, host)) {
+          throw new Error("使用模板后没有进入生成页");
+        }
+        const readyMessage = waitForPrefix(window, "已选择模板，请继续选择内容文件", 6, host);
+        if (!readyMessage) {
+          throw new Error("生成页没有接收到模板库选择结果");
+        }
+        templateWorkflow = elementName(readyMessage);
+      }
+      if (page.validation) {
+        stage = "等待输出校验稳定状态";
+        const validationText = waitForAnyPrefix(
+          window,
+          ["自动校验", "已选择模板，请继续选择 AI 输出文件"],
+          12,
+          host,
+        );
+        if (!validationText) {
+          throw new Error("输出校验页面没有进入稳定状态");
+        }
+        validationSummary = elementName(validationText);
+      }
+
+      results.push({
+        page: page.navigation,
+        heading: observedHeading,
+        validationSummary: validationSummary,
+        templateWorkflow: templateWorkflow,
+        ok: true,
+      });
+      console.log("检查通过：" + page.navigation);
+    }
+
+    stage = "最终界面稳定性检查";
+    assertNoUiError(window, host);
+
+    return JSON.stringify({ ok: true, pages: results });
+  } catch (error) {
+    const visibleElements = activeWindow ? collectNamedElements(activeWindow, 900, 40) : [];
+    return JSON.stringify({
+      ok: false,
+      error: stage + "：" + (error && error.message ? error.message : String(error)),
+      visibleElements: visibleElements,
+    });
+  }
+}
+
+function collectNamedElements(root, maxNodes, limit) {
+  const results = [];
+  const seen = {};
+  walkElements(root, maxNodes, function (element) {
+    const name = elementName(element);
+    if (name && !seen[name] && results.length < limit) {
+      seen[name] = true;
+      results.push({ role: elementRole(element), name: name });
+    }
+    return false;
+  });
+  return results;
+}
+
+function clearExistingUiError(navigation, window, host) {
+  const button = findElement(navigation, "AXButton", "环境体检", 700);
+  if (!button) {
+    throw new Error("主导航缺少页面：环境体检");
+  }
+  pressElement(button);
+  if (!waitForElement(window, "AXHeading", "环境体检", 6, host)) {
+    throw new Error("无法打开环境体检页面");
+  }
+
+  const status = waitForAnyName(window, ["正常", "最近异常"], 6, host);
+  if (!status) {
+    throw new Error("环境体检缺少界面稳定性状态");
+  }
+  if (elementName(status) === "最近异常") {
+    const clearButton = findElement(window, "AXButton", "清除记录", 700);
+    if (!clearButton) {
+      throw new Error("找到最近异常，但无法清除测试前记录");
+    }
+    pressElement(clearButton);
+    if (!waitForElement(window, null, "正常", 4, host)) {
+      throw new Error("测试前界面异常记录未能清除");
+    }
+  }
+}
+
+function assertNoUiError(window, host) {
+  const currentNavigation = waitForElement(window, "AXGroup", "主导航", 6, host);
+  if (!currentNavigation) {
+    throw new Error("最终稳定性检查无法重新获取主导航");
+  }
+  const button = findElement(currentNavigation, "AXButton", "环境体检", 700);
+  pressElement(button);
+  if (!waitForElement(window, "AXHeading", "环境体检", 6, host)) {
+    throw new Error("最终稳定性检查无法打开环境体检页面");
+  }
+
+  const status = waitForAnyName(window, ["正常", "最近异常"], 6, host);
+  if (!status) {
+    throw new Error("最终稳定性检查没有读取到状态");
+  }
+  if (elementName(status) !== "正常") {
+    throw new Error("页面巡检期间记录到了界面异常");
+  }
+}
+
+function pressElement(element) {
+  try {
+    const action = element.actions.byName("AXPress");
+    if (action.exists()) {
+      action.perform();
+      return;
+    }
+  } catch (_) {
+    // Fall through to the standard click command.
+  }
+  element.click();
+}
+
+function waitForElement(root, role, name, timeoutSeconds, host) {
+  const deadline = Date.now() + timeoutSeconds * 1000;
+  while (Date.now() < deadline) {
+    const element = findElement(root, role, name, 900);
+    if (element) {
+      return element;
+    }
+    delay(0.25);
+  }
+  return null;
+}
+
+function waitForPrefix(root, prefix, timeoutSeconds, host) {
+  const deadline = Date.now() + timeoutSeconds * 1000;
+  while (Date.now() < deadline) {
+    const element = findElementByPrefix(root, prefix, 900);
+    if (element) {
+      return element;
+    }
+    delay(0.35);
+  }
+  return null;
+}
+
+function waitForAnyPrefix(root, prefixes, timeoutSeconds, host) {
+  const deadline = Date.now() + timeoutSeconds * 1000;
+  while (Date.now() < deadline) {
+    for (let index = 0; index < prefixes.length; index += 1) {
+      const element = findElementByPrefix(root, prefixes[index], 900);
+      if (element) {
+        return element;
+      }
+    }
+    delay(0.35);
+  }
+  return null;
+}
+
+function waitForAnyName(root, names, timeoutSeconds, host) {
+  const deadline = Date.now() + timeoutSeconds * 1000;
+  while (Date.now() < deadline) {
+    const element = walkElements(root, 900, function (candidate) {
+      return names.indexOf(elementName(candidate)) >= 0;
+    });
+    if (element) {
+      return element;
+    }
+    delay(0.25);
+  }
+  return null;
+}
+
+function findElement(root, role, name, maxNodes) {
+  return walkElements(root, maxNodes, function (element) {
+    return (role === null || elementRole(element) === role) && elementName(element) === name;
+  });
+}
+
+function findElementByPrefix(root, prefix, maxNodes) {
+  return walkElements(root, maxNodes, function (element) {
+    return elementName(element).indexOf(prefix) === 0;
+  });
+}
+
+function walkElements(root, maxNodes, predicate) {
+  const queue = [root];
+  let visited = 0;
+  while (queue.length > 0 && visited < maxNodes) {
+    const element = queue.shift();
+    visited += 1;
+    if (predicate(element)) {
+      return element;
+    }
+
+    const children = elementChildren(element);
+    for (let index = 0; index < children.length; index += 1) {
+      queue.push(children[index]);
+    }
+  }
+  return null;
+}
+
+function elementChildren(element) {
+  try {
+    return element.uiElements();
+  } catch (_) {
+    return [];
+  }
+}
+
+function elementRole(element) {
+  try {
+    return String(element.role());
+  } catch (_) {
+    return "";
+  }
+}
+
+function elementName(element) {
+  try {
+    return String(element.name());
+  } catch (_) {
+    return "";
+  }
+}

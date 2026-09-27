@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1.0",
+  "documentType": "pptx_pages",
+  "title": "老年住院患者跌倒预防与护理安全管理",
+  "pages": [
+    {
+      "use": "cover",
+      "data": {
+        "title": "老年住院患者跌倒预防与护理安全管理",
+        "speaker": "护理教学示例",
+        "date": "2026-06"
+      }
+    },
+    {
+      "use": "goals",
+      "data": {
+        "goals": ["识别跌倒高危因素", "掌握班班交接要点", "完成护理安全闭环"]
+      }
+    },
+    {
+      "use": "section_divider",
+      "data": {
+        "label": "第一部分",
+        "title": "护理执行"
+      }
+    },
+    {
+      "use": "chapter_content",
+      "data": {
+        "contentTitle": "将预防措施嵌入每班工作",
+        "items": [
+          { "heading": "主动巡视", "body": "询问排尿、疼痛、眩晕和下床需求。" },
+          { "heading": "起立三步", "body": "协助患者从卧位、坐位到站立逐步转换。" },
+          { "heading": "转运陪护", "body": "确认轮椅刹车、管路固定、鞋袜防滑和陪检交接。" },
+          { "heading": "家属协同", "body": "说明陪护禁忌、呼叫时机和夜间如厕协助方式。" }
+        ]
+      }
+    },
+    {
+      "use": "chapter_content_compact",
+      "data": {
+        "contentTitle": "将预防措施嵌入每班工作",
+        "items": [
+          { "heading": "记录追踪", "body": "将巡视、宣教和异常情况记录到护理文书。" }
+        ]
+      }
+    },
+    {
+      "use": "summary",
+      "data": {
+        "summary": ["风险识别要前移", "护理措施要落到每班动作", "异常情况要形成闭环记录"]
+      }
+    },
+    {
+      "use": "closing",
+      "data": {}
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1.0",
+  "documentType": "teaching_deck",
+  "title": "老年住院患者跌倒预防与护理安全管理",
+  "speaker": "护理教学示例",
+  "date": "2026-06-25",
+  "goals": [
+    "识别跌倒高危因素",
+    "掌握风险评估流程",
+    "执行护理干预措施",
+    "完成事件复盘改进"
+  ],
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "label": "第一部分",
+      "title": "风险识别",
+      "contentTitle": "从入院开始发现高危因素",
+      "items": [{ "heading": "人群特征", "body": "关注高龄、虚弱、术后恢复和既往跌倒史。" }]
+    },
+    {
+      "id": "chapter-2",
+      "label": "第二部分",
+      "title": "评估分级",
+      "contentTitle": "用标准化流程形成同质判断",
+      "items": [{ "heading": "动态复评", "body": "病情变化、用药调整和活动能力下降后立即复评。" }]
+    },
+    {
+      "id": "chapter-3",
+      "label": "第三部分",
+      "title": "环境干预",
+      "contentTitle": "把安全设计落实到床旁细节",
+      "items": [{ "heading": "通道清洁", "body": "保持床旁、卫生间和走廊无障碍。" }]
+    },
+    {
+      "id": "chapter-4",
+      "label": "第四部分",
+      "title": "护理执行",
+      "contentTitle": "将预防措施嵌入每班工作",
+      "items": [{ "heading": "主动巡视", "body": "询问排尿、疼痛、眩晕和下床需求。" }]
+    },
+    {
+      "id": "chapter-5",
+      "label": "第五部分",
+      "title": "事件处置",
+      "contentTitle": "跌倒发生后快速评估与上报",
+      "items": [{ "heading": "现场保护", "body": "先评估意识、疼痛、出血和生命体征。" }]
+    },
+    {
+      "id": "chapter-6",
+      "label": "第六部分",
+      "title": "质量改进",
+      "contentTitle": "从个案复盘走向系统优化",
+      "items": [{ "heading": "根因分析", "body": "区分患者因素、环境因素和流程缺口。" }]
+    }
+  ],
+  "summary": [
+    "风险识别要前移",
+    "预防措施要组合执行",
+    "事件处置要闭环记录",
+    "质量改进要持续追踪"
+  ],
+  "evaluations": [
+    {
+      "title": "教学评价",
+      "items": ["理论提问", "操作演示", "案例分析"]
+    }
+  ]
+}

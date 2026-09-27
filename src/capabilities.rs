@@ -1,0 +1,135 @@
+use serde::Serialize;
+
+#[derive(Debug, Serialize)]
+pub struct AppInfo {
+    pub product_name: &'static str,
+    pub binary_name: &'static str,
+    pub version: &'static str,
+    pub storage_path: String,
+}
+
+#[derive(Debug, Serialize)]
+pub struct AppCapabilities {
+    pub template_modes: Vec<&'static str>,
+    pub prompt_pack: Vec<&'static str>,
+    pub content_formats: Vec<&'static str>,
+    pub content_profiles: Vec<&'static str>,
+    pub renderers: Vec<&'static str>,
+    pub workflows: Vec<&'static str>,
+    pub diagnostics: Vec<&'static str>,
+    pub privacy_rules: Vec<&'static str>,
+}
+
+pub fn app_info() -> AppInfo {
+    AppInfo {
+        product_name: "rDeckForge",
+        binary_name: "rdeckforge",
+        version: env!("CARGO_PKG_VERSION"),
+        storage_path: crate::storage::default_storage_path().display().to_string(),
+    }
+}
+
+pub fn capabilities() -> AppCapabilities {
+    AppCapabilities {
+        template_modes: vec![
+            "linked_private_template_pack",
+            "template_contract_export",
+            "template_local_authoring_context",
+            "script_template_adapter_creation",
+            "pptx_draft_template_pack_creation",
+            "docx_draft_template_pack_creation",
+            "xlsx_draft_template_pack_creation",
+            "portable_rdeckpack_export_import",
+            "template_declared_self_tests",
+            "template_path_availability_and_relink",
+            "demo_template_pack",
+        ],
+        prompt_pack: vec![
+            "build_prompt",
+            "ai_handoff_prompt",
+            "template_contract_injection",
+            "template_authoring_instruction_injection",
+            "standalone_template_contract",
+            "content_skeleton_from_template_contract",
+            "validate_prompt_pack",
+        ],
+        content_formats: vec![
+            "content.json",
+            "content.md",
+            "explicit_pages_json",
+            "content_pack_directory",
+            "local_content_pack_assets",
+        ],
+        content_profiles: vec!["teaching_deck_v1", "design_doc_v1", "feature_assessment_v1"],
+        renderers: vec![
+            "pptx_node_sidecar",
+            "pptx_explicit_pages_content",
+            "pptx_text_list_image_table_bindings",
+            "pptx_chart_image_placeholders",
+            "pptx_generated_chart_images",
+            "pptx_native_editable_charts",
+            "pptx_table_layout_options",
+            "pptx_repeat_chunk_pagination",
+            "pptx_data_driven_page_variants",
+            "pptx_overflow_split_pages",
+            "pptx_overflow_variant_selection",
+            "pptx_grouped_recipe_steps",
+            "pptx_conditional_recipe_steps",
+            "accepted_office_render_dispatch",
+            "atomic_office_output_commit",
+            "office_package_integrity_validation",
+            "linked_template_family_batch_render",
+            "script_python_template_renderer",
+            "script_node_template_renderer",
+            "script_shell_template_renderer",
+            "script_powershell_template_renderer",
+            "script_command_runtime_adapter",
+            "hybrid_template_script_renderer",
+            "post_render_pipeline_steps",
+            "docx_openxml_minimal",
+            "docx_design_doc_markdown_profile",
+            "docx_placeholder_template_renderer",
+            "docx_list_table_image_placeholders",
+            "docx_placeholder_style_preservation",
+            "docx_table_prototype_style_expansion",
+            "docx_semantic_document_blocks",
+            "xlsx_cell_template_renderer",
+            "xlsx_assessment_json_builtin",
+            "xlsx_named_range_bindings",
+            "xlsx_list_table_cell_expansion",
+            "xlsx_ordered_table_columns",
+            "xlsx_header_body_row_prototypes",
+            "xlsx_template_style_preservation",
+        ],
+        workflows: vec![
+            "workflow_handoff_prompt_generation",
+            "workflow_validate_repair_hint_render",
+            "workflow_render_accepted_office",
+            "workflow_render_template_family",
+            "workflow_task_persistence",
+            "workflow_task_resume_duplicate_delete",
+            "template_self_test_execution",
+            "ai_cli_orchestration_ready",
+        ],
+        diagnostics: vec![
+            "environment_readiness",
+            "template_health_check",
+            "template_dependency_readiness",
+            "template_declared_dependency_check",
+            "template_self_test_assertions",
+            "template_semantic_text_assertions",
+            "pptx_template_inspection",
+            "docx_placeholder_inspection",
+            "xlsx_sheet_named_range_inspection",
+            "ai_output_acceptance_summary",
+            "xlsx_validation_report",
+            "office_zip_xml_relationship_validation",
+        ],
+        privacy_rules: vec![
+            "no_private_templates_in_repo",
+            "no_private_templates_in_app_bundle",
+            "store_paths_and_validation_metadata_only",
+            "never_return_environment_variable_values",
+        ],
+    }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "app.rseries.rdeckforge.content.feature_assessment_v1",
+  "title": "rDeckForge Feature Assessment Workbook Content",
+  "type": "object",
+  "required": ["detailed_rows"],
+  "properties": {
+    "title": { "type": "string" },
+    "detailed_rows": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "module",
+          "feature",
+          "change_type",
+          "effort",
+          "backend_dependency",
+          "backend_notes",
+          "owner",
+          "progress",
+          "notes"
+        ],
+        "properties": {
+          "module": { "type": "string" },
+          "feature": { "type": "string" },
+          "change_type": { "type": "string" },
+          "effort": {
+            "anyOf": [{ "type": "number" }, { "type": "string" }]
+          },
+          "backend_dependency": { "type": "string" },
+          "backend_notes": { "type": "string" },
+          "owner": { "type": "string" },
+          "progress": { "type": "string" },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "evaluation_basis": { "type": "string" },
+        "assumptions": { "type": "string" },
+        "out_of_scope": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

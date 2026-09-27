@@ -1,0 +1,32 @@
+target/
+
+web/node_modules/
+web/dist/
+dist/
+
+src-tauri/target/
+src-tauri/icons/*.icns
+src-tauri/icons/*.ico
+src-tauri/icons/*.png
+!src-tauri/icons/icon.png
+src-tauri/binaries/*
+renderers/pptx-node/dist-sidecar/
+
+.DS_Store
+*.log
+
+# Local visual QA captures and comparison evidence.
+/qa-*.png
+/.visual-*.html
+/.playwright-mcp/
+/.codex-artifacts/
+
+# Private template and prompt assets must never be committed.
+private-templates/
+templates/private/
+prompt-packs/private/
+*.company-template.pptx
+*.private-template.pptx
+*.template-snapshot.pptx
+*.template-background.png
+*.template-logo.png

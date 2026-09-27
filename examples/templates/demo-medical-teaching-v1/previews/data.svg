@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Demo medical teaching data preview">
+  <rect width="640" height="360" rx="18" fill="#111720"/>
+  <rect x="28" y="28" width="584" height="304" rx="14" fill="#f7f9fb"/>
+  <text x="58" y="82" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#172033">Table + Chart</text>
+  <rect x="58" y="116" width="248" height="148" rx="10" fill="#ffffff" stroke="#d4dce4"/>
+  <rect x="58" y="116" width="248" height="34" rx="10" fill="#e8eef4"/>
+  <g stroke="#d4dce4">
+    <path d="M58 150h248M58 188h248M58 226h248M140 116v148M224 116v148"/>
+  </g>
+  <rect x="362" y="118" width="42" height="132" rx="8" fill="#88a7c4"/>
+  <rect x="424" y="154" width="42" height="96" rx="8" fill="#51739b"/>
+  <rect x="486" y="92" width="42" height="158" rx="8" fill="#b8c7d5"/>
+  <path d="M350 266h196" stroke="#d4dce4" stroke-width="4" stroke-linecap="round"/>
+</svg>

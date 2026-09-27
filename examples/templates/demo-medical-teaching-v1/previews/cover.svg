@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Demo medical teaching cover preview">
+  <rect width="640" height="360" rx="18" fill="#10161f"/>
+  <rect x="28" y="28" width="584" height="304" rx="14" fill="#f5f7f9"/>
+  <rect x="60" y="64" width="220" height="14" rx="7" fill="#51739b"/>
+  <text x="60" y="132" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#172033">Medical Teaching</text>
+  <text x="60" y="172" font-family="Arial, sans-serif" font-size="18" fill="#566270">Structured course deck</text>
+  <rect x="60" y="226" width="140" height="10" rx="5" fill="#c9d3de"/>
+  <rect x="60" y="252" width="190" height="10" rx="5" fill="#d7dee6"/>
+  <circle cx="468" cy="180" r="78" fill="#dce8f2"/>
+  <path d="M468 126v108M414 180h108" stroke="#51739b" stroke-width="18" stroke-linecap="round"/>
+</svg>
