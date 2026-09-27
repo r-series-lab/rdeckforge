@@ -332,3 +332,15 @@ rdeckforge/
 ```
 
 公开仓库边界、贡献约定、安全报告和发布合同见 [PUBLIC_REPOSITORY.md](PUBLIC_REPOSITORY.md)、[CONTRIBUTING.md](CONTRIBUTING.md)、[SECURITY.md](SECURITY.md) 和 [RELEASE.md](RELEASE.md)。
+
+## 界面预览与公开文档
+
+公开截图只展示安全的初始工作台；模板和内容演示使用仓库 `examples/` 中的合成 fixture，不包含真实医院、公司、客户或个人资料。
+
+![rDeckForge 生成工作区](docs/assets/screenshots/rdeckforge-render.png)
+
+- [界面与公开演示说明](docs/interface-guide.md)
+- [模板协议](docs/TEMPLATE_MANIFEST.md)
+- [多格式适配](docs/MULTIFORMAT_ADAPTERS.md)
+- [发布说明](RELEASE.md)
+- [安全边界](SECURITY.md)

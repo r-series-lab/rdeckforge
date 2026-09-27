@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/r-series-lab/rdeckforge/security/advisories/new
+    about: Report security issues privately.
+  - name: User documentation
+    url: https://github.com/r-series-lab/rdeckforge/tree/main/docs
+    about: Read the public interface, template, and release documentation.

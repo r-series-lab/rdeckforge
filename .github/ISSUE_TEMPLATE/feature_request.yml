@@ -1,0 +1,28 @@
+name: Feature request
+description: Propose a focused rDeckForge improvement
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or document workflow
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: Template, data, and rollback considerations
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Primary surface
+      options: [AI handoff, Template library, Content validation, Generation, Task center, CLI, Other]
+    validations:
+      required: true
